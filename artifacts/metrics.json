@@ -1,0 +1,8 @@
+{
+    "Model": "Tuned XGBoost",
+    "Accuracy": 0.8433,
+    "Precision": 0.6663,
+    "Recall": 0.8632,
+    "F1-Score": 0.7521,
+    "ROC-AUC": 0.9263
+}

@@ -1,0 +1,21 @@
+body {
+    background-color: #0f172a;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.gauge-container {
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    border-radius: 16px;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    padding: 10px 14px;
+}

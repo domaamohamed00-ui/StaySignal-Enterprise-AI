@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaySignal 4K - AI Executive Cancellation Intelligence</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome Icons & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chart.js & html2pdf.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        :root {
+            --bg-4k: #030712;
+            --card-3d-bg: linear-gradient(145deg, #111827 0%, #0b0f19 100%);
+            --card-3d-border: rgba(255, 255, 255, 0.12);
+            --card-3d-highlight: rgba(255, 255, 255, 0.22);
+            --input-3d-bg: #090e1a;
+            --accent-blue: #3b82f6;
+            --accent-neon: #60a5fa;
+            --accent-glow: rgba(59, 130, 246, 0.5);
+            --text-bright: #ffffff;
+            --text-sub: #94a3b8;
+        }
+
+        body {
+            background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #030712 60%, #020408 100%);
+            color: var(--text-bright);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        /* Ambient 4K Mesh Background Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
+                        radial-gradient(circle at 10% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* 3D Glass Cards */
+        .card-3d-panel {
+            position: relative;
+            z-index: 1;
+            background: var(--card-3d-bg);
+            border: 1px solid var(--card-3d-border);
+            border-top: 1px solid var(--card-3d-highlight);
+            border-radius: 22px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85),
+                        inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card-3d-panel:hover {
+            box-shadow: 0 30px 60px -10px var(--accent-glow),
+                        inset 0 1px 2px rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Executive Header Navbar */
+        .navbar-4k {
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--card-3d-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-text-4k {
+            background: linear-gradient(135deg, #60a5fa 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            font-size: 1.6rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* 3D Stat Box KPI */
+        .kpi-3d-box {
+            background: linear-gradient(145deg, #0f172a 0%, #090e1a 100%);
+            border: 1px solid var(--card-3d-border);
+            border-top: 1px solid var(--card-3d-highlight);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .kpi-3d-box:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(59, 130, 246, 0.25);
+        }
+
+        /* 3D High Contrast Form Labels & Inputs */
+        .label-3d-text {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+            display: block;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .input-3d-control, .select-3d-control {
+            background-color: var(--input-3d-bg) !important;
+            border: 1.5px solid var(--card-3d-border) !important;
+            border-bottom: 2px solid var(--accent-blue) !important;
+            color: #ffffff !important;
+            border-radius: 12px !important;
+            padding: 12px 16px !important;
+            font-size: 0.95rem !important;
+            font-weight: 700 !important;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7) !important;
+            transition: all 0.25s ease;
+            width: 100%;
+        }
+
+        .input-3d-control:focus, .select-3d-control:focus {
+            border-color: var(--accent-neon) !important;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 20px var(--accent-glow) !important;
+            transform: translateY(-1px);
+        }
+
+        /* Section Titles */
+        .section-3d-tag {
+            color: var(--accent-neon);
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-bottom: 1px solid var(--card-3d-border);
+            padding-bottom: 8px;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Executive 3D Button */
+        .btn-3d-execute {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 50%, #1e40af 100%);
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 16px;
+            border-radius: 16px;
+            box-shadow: 0 12px 25px -5px rgba(37, 99, 235, 0.6), inset 0 -3px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .btn-3d-execute:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 35px -5px rgba(37, 99, 235, 0.8);
+            color: #ffffff;
+        }
+
+        .btn-3d-execute:active {
+            transform: translateY(2px);
+            box-shadow: 0 5px 15px -3px rgba(37, 99, 235, 0.5);
+        }
+
+        /* 3D Gauge Container */
+        .gauge-3d-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 0 auto;
+            filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.7));
+        }
+
+        .gauge-3d-text {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--text-sub);
+            font-weight: 700;
+            border-radius: 12px;
+            padding: 10px 22px;
+        }
+
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4), inset 0 1px 0 rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Executive Navbar Header -->
+    <nav class="navbar navbar-expand-lg navbar-4k py-3">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-3" href="#">
+                <div class="rounded-3 p-2 d-flex align-items-center justify-content-center" style="background: linear-gradient(135deg, #2563eb, #7c3aed); width: 44px; height: 44px; box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4); border-top: 1px solid rgba(255,255,255,0.3);">
+                    <i class="fa-solid fa-hotel fs-5 text-white"></i>
+                </div>
+                <div>
+                    <span class="brand-text-4k">StaySignal<span class="text-white">.ai</span></span>
+                    <span class="d-block text-muted style-sub" style="font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;">ENTERPRISE AI RISK PREDICTION SYSTEM</span>
+                </div>
+            </a>
+
+            <div class="d-flex align-items-center gap-4">
+                <ul class="nav nav-pills" id="mainTab" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" id="booking-tab" data-bs-toggle="tab" data-bs-target="#booking-pane"><i class="fa-solid fa-cube me-2"></i>3D Risk Engine</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" id="analytics-tab" data-bs-toggle="tab" data-bs-target="#analytics-pane" onclick="loadAnalytics()"><i class="fa-solid fa-chart-line me-2"></i>Model Analytics</button>
+                    </li>
+                </ul>
+
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 fw-bold d-none d-md-inline-block">
+                    <i class="fa-solid fa-shield-check me-1"></i> XGBoost Engine Live
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid px-4 py-4" style="position: relative; z-index: 1;">
+        <div class="tab-content" id="mainTabContent">
+            
+            <!-- TAB 1: EXECUTIVE RISK ENGINE -->
+            <div class="tab-pane fade show active" id="booking-pane">
+                
+                <!-- KPI Executive Bar -->
+                <div class="row g-3 mb-4">
+                    <div class="col-xl-3 col-md-6">
+                        <div class="kpi-3d-box d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-calendar-days text-primary fs-3"></i>
+                            <div>
+                                <small class="text-muted fw-bold d-block">ESTIMATED DURATION</small>
+                                <h5 class="fw-extrabold mb-0 text-white" id="sumNights">5 Nights</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="kpi-3d-box d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-users text-info fs-3"></i>
+                            <div>
+                                <small class="text-muted fw-bold d-block">GUEST COUNT</small>
+                                <h5 class="fw-extrabold mb-0 text-white" id="sumGuests">3 Guests</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="kpi-3d-box d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-dollar-sign text-success fs-3"></i>
+                            <div>
+                                <small class="text-muted fw-bold d-block">ESTIMATED REVENUE</small>
+                                <h5 class="fw-extrabold mb-0 text-white" id="sumPrice">$600</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="kpi-3d-box d-flex align-items-center gap-3">
+                            <i class="fa-solid fa-sliders text-warning fs-3"></i>
+                            <div>
+                                <small class="text-muted fw-bold d-block">INFERENCE PARAMETERS</small>
+                                <h5 class="fw-extrabold mb-0 text-white">28 Features</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    
+                    <!-- Form Input Column -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card-3d-panel p-4">
+                            <form id="bookingForm" onsubmit="event.preventDefault(); submitBooking();">
+                                
+                                <!-- Group 1 -->
+                                <div class="section-3d-tag"><i class="fa-solid fa-hotel"></i>1. Reservation & Property Configuration</div>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Hotel Category</label>
+                                        <select id="hotel" class="select-3d-control" onchange="calculateTotal()">
+                                            <option value="City Hotel">City Hotel</option>
+                                            <option value="Resort Hotel">Resort Hotel</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Lead Time (Days)</label>
+                                        <input type="number" id="lead_time" class="input-3d-control" value="60" min="0" oninput="calculateTotal()">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Average Daily Rate ($)</label>
+                                        <input type="number" id="adr" class="input-3d-control" value="120" min="0" oninput="calculateTotal()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="label-3d-text">Week Nights Stay</label>
+                                        <input type="number" id="stays_in_week_nights" class="input-3d-control" value="3" min="0" oninput="calculateTotal()">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="label-3d-text">Weekend Nights Stay</label>
+                                        <input type="number" id="stays_in_weekend_nights" class="input-3d-control" value="2" min="0" oninput="calculateTotal()">
+                                    </div>
+                                </div>
+
+                                <!-- Group 2 -->
+                                <div class="section-3d-tag"><i class="fa-solid fa-user-shield"></i>2. Guest Composition & Terms</div>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-3">
+                                        <label class="label-3d-text">Adults</label>
+                                        <input type="number" id="adults" class="input-3d-control" value="2" min="1" oninput="calculateTotal()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="label-3d-text">Children</label>
+                                        <input type="number" id="children" class="input-3d-control" value="1" min="0" oninput="calculateTotal()">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="label-3d-text">Babies</label>
+                                        <input type="number" id="babies" class="input-3d-control" value="0" min="0">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="label-3d-text">Deposit Guarantee</label>
+                                        <select id="deposit_type" class="select-3d-control">
+                                            <option value="No Deposit">No Deposit</option>
+                                            <option value="Non Refund">Non Refundable</option>
+                                            <option value="Refundable">Refundable</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Group 3 -->
+                                <div class="section-3d-tag"><i class="fa-solid fa-clock-rotate-left"></i>3. Behavioral Profile & Amenities</div>
+                                <div class="row g-3 mb-4">
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Customer Profile</label>
+                                        <select id="customer_type" class="select-3d-control">
+                                            <option value="Transient">Transient (Individual)</option>
+                                            <option value="Contract">Contract Corporate</option>
+                                            <option value="Group">Group Booking</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Prior Cancellations</label>
+                                        <input type="number" id="previous_cancellations" class="input-3d-control" value="0" min="0">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="label-3d-text">Special Requests</label>
+                                        <input type="number" id="total_of_special_requests" class="input-3d-control" value="1" min="0">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="label-3d-text">Parking Spaces Requested</label>
+                                        <input type="number" id="required_car_parking_spaces" class="input-3d-control" value="0" min="0">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="label-3d-text">Meal Plan</label>
+                                        <select id="meal" class="select-3d-control">
+                                            <option value="BB">Bed & Breakfast (BB)</option>
+                                            <option value="HB">Half Board (HB)</option>
+                                            <option value="FB">Full Board (FB)</option>
+                                            <option value="SC">Self Catering (SC)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-3d-execute w-100">
+                                    <i class="fa-solid fa-wand-magic-sparkles me-2"></i>Execute AI Risk Analysis
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Prediction Output Column -->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card-3d-panel p-4 sticky-top" style="top: 90px;" id="printableReportArea">
+                            
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="text-muted small fw-bold">SCENARIO TESTERS</span>
+                                <div class="btn-group btn-group-sm">
+                                    <button class="btn btn-outline-success btn-sm fw-bold" onclick="loadExample('safe')">Low Risk</button>
+                                    <button class="btn btn-outline-danger btn-sm fw-bold" onclick="loadExample('risky')">High Risk</button>
+                                    <button class="btn btn-outline-secondary btn-sm fw-bold" onclick="resetForm()">Reset</button>
+                                </div>
+                            </div>
+
+                            <!-- Animated 3D Gauge Container -->
+                            <div class="text-center my-4">
+                                <div class="gauge-3d-wrapper mb-3">
+                                    <canvas id="gaugeCanvas" width="220" height="220"></canvas>
+                                    <div class="gauge-3d-text">
+                                        <h1 id="riskScorePercent" class="fw-extrabold mb-0 text-white" style="text-shadow: 0 0 20px rgba(255,255,255,0.4);">-</h1>
+                                        <span class="text-muted fw-bold" style="font-size: 0.72rem; letter-spacing: 0.08em;">CANCELLATION RISK</span>
+                                    </div>
+                                </div>
+                                
+                                <h4 id="riskStatusTitle" class="fw-bold text-white mb-2">Awaiting Assessment</h4>
+                                <p id="riskStatusDesc" class="text-muted small">Execute model inference to generate dynamic risk score and executive AI report.</p>
+                            </div>
+
+                            <!-- AI Executive Summary Box -->
+                            <div class="kpi-3d-box mb-4">
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <i class="fa-solid fa-brain text-primary"></i>
+                                        <span class="fw-bold small text-white">AI Executive Analysis</span>
+                                    </div>
+                                    <span class="badge bg-secondary" style="font-size: 0.65rem;" id="aiSummaryBadge">READY</span>
+                                </div>
+                                <div id="aiSummaryContent" class="text-muted small">
+                                    <p class="mb-0">Run evaluation to view dynamic risk drivers, mitigating factors, and operational recommendations.</p>
+                                </div>
+                            </div>
+
+                            <!-- Printable PDF Action Button -->
+                            <button id="downloadPdfBtn" class="btn btn-outline-light w-100 fw-bold rounded-3 py-2.5 d-flex align-items-center justify-content-center gap-2" onclick="downloadPdfReport()" style="display: none; box-shadow: 0 8px 20px rgba(0,0,0,0.4);">
+                                <i class="fa-solid fa-file-pdf text-danger fs-5"></i> Download Executive PDF Report
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- TAB 2: MODEL ANALYTICS & BENCHMARKS -->
+            <div class="tab-pane fade" id="analytics-pane">
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card-3d-panel p-4 text-center">
+                            <span class="text-muted small fw-bold">CHOSEN MODEL ENGINE</span>
+                            <h3 class="fw-bold text-primary mt-2" id="metricModelName">Tuned XGBoost</h3>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Production Deployed</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-3d-panel p-4 text-center">
+                            <span class="text-muted small fw-bold">ROC-AUC ACCURACY</span>
+                            <h3 class="fw-bold text-success mt-2" id="metricRocAuc">0.9263</h3>
+                            <span class="text-muted small">Validation Test Score</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card-3d-panel p-4 text-center">
+                            <span class="text-muted small fw-bold">INPUT DIMENSIONALITY</span>
+                            <h3 class="fw-bold text-info mt-2">28 Parameters</h3>
+                            <span class="text-muted small">Balanced Multi-Feature</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-3d-panel p-4">
+                    <h5 class="fw-bold text-white mb-4"><i class="fa-solid fa-chart-column text-primary me-2"></i>ML Benchmark Comparison (ROC-AUC Score)</h5>
+                    <canvas id="metricsChart" height="90"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script Execution -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let gaugeChart = null;
+
+        function renderGauge(score = 0, isCanceled = 0) {
+            const ctx = document.getElementById('gaugeCanvas').getContext('2d');
+            if (gaugeChart) gaugeChart.destroy();
+
+            const fillColor = isCanceled === 1 ? '#ef4444' : (score > 0 ? '#10b981' : '#334155');
+
+            gaugeChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [score, 100 - score],
+                        backgroundColor: [fillColor, '#1e293b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    cutout: '84%',
+                    rotation: -90,
+                    circumference: 180,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { tooltip: { enabled: false } }
+                }
+            });
+        }
+
+        function calculateTotal() {
+            const weekNights = parseInt(document.getElementById('stays_in_week_nights').value) || 0;
+            const weekendNights = parseInt(document.getElementById('stays_in_weekend_nights').value) || 0;
+            const adults = parseInt(document.getElementById('adults').value) || 0;
+            const children = parseInt(document.getElementById('children').value) || 0;
+            const adr = parseFloat(document.getElementById('adr').value) || 0;
+
+            const totalNights = weekNights + weekendNights;
+            const totalGuests = adults + children;
+            const totalPrice = totalNights * adr;
+
+            document.getElementById('sumNights').innerText = `${totalNights} Nights`;
+            document.getElementById('sumGuests').innerText = `${totalGuests} Guests`;
+            document.getElementById('sumPrice').innerText = `$${totalPrice.toLocaleString('en-US')}`;
+        }
+
+        function generateAISummary(payload, probPct, isCanceled) {
+            let drivers = [];
+            let mitigations = [];
+
+            if (payload.lead_time > 100) drivers.push(`Extended Lead Time (${payload.lead_time} days).`);
+            if (payload.previous_cancellations > 0) drivers.push(`History of ${payload.previous_cancellations} prior cancellation(s).`);
+            if (payload.deposit_type === 'No Deposit') drivers.push("Zero deposit protection registered.");
+
+            if (payload.deposit_type === 'Non Refund') mitigations.push("Non-refundable deposit protection active.");
+            if (payload.required_car_parking_spaces > 0) mitigations.push("Parking slot requested (strong intent).");
+            if (payload.total_of_special_requests > 0) mitigations.push(`${payload.total_of_special_requests} special request(s) logged.`);
+
+            let summaryHtml = `<div class="mb-2"><strong class="text-white">Primary Risk Drivers:</strong><ul class="mb-1 ps-3 text-muted">`;
+            if (drivers.length > 0) {
+                drivers.forEach(d => summaryHtml += `<li>${d}</li>`);
+            } else {
+                summaryHtml += `<li>Short lead time and clean customer history.</li>`;
+            }
+            summaryHtml += `</ul></div>`;
+
+            summaryHtml += `<div class="mb-2"><strong class="text-white">Mitigating Factors:</strong><ul class="mb-1 ps-3 text-muted">`;
+            if (mitigations.length > 0) {
+                mitigations.forEach(m => summaryHtml += `<li>${m}</li>`);
+            } else {
+                summaryHtml += `<li>Standard engagement parameters.</li>`;
+            }
+            summaryHtml += `</ul></div>`;
+
+            const rec = isCanceled === 1 
+                ? "<span class='text-danger fw-bold'>Recommendation:</span> Request advance deposit or send confirmation reminder."
+                : "<span class='text-success fw-bold'>Recommendation:</span> Standard processing. High probability of check-in.";
+
+            summaryHtml += `<div>${rec}</div>`;
+
+            document.getElementById('aiSummaryContent').innerHTML = summaryHtml;
+            document.getElementById('aiSummaryBadge').innerText = isCanceled === 1 ? "HIGH RISK" : "SECURE";
+            document.getElementById('aiSummaryBadge').className = isCanceled === 1 ? "badge bg-danger text-white" : "badge bg-success text-white";
+            document.getElementById('downloadPdfBtn').style.display = 'flex';
+        }
+
+        async function submitBooking() {
+            calculateTotal();
+
+            const payload = {
+                hotel: document.getElementById('hotel').value,
+                lead_time: parseInt(document.getElementById('lead_time').value) || 0,
+                arrival_date_year: 2026,
+                arrival_date_month: "October",
+                arrival_date_week_number: 41,
+                arrival_date_day_of_month: 8,
+                stays_in_weekend_nights: parseInt(document.getElementById('stays_in_weekend_nights').value) || 0,
+                stays_in_week_nights: parseInt(document.getElementById('stays_in_week_nights').value) || 0,
+                adults: parseInt(document.getElementById('adults').value) || 1,
+                children: parseFloat(document.getElementById('children').value) || 0.0,
+                babies: parseInt(document.getElementById('babies').value) || 0,
+                meal: document.getElementById('meal').value,
+                country: "PRT",
+                market_segment: "Online TA",
+                distribution_channel: "TA/TO",
+                is_repeated_guest: 0,
+                previous_cancellations: parseInt(document.getElementById('previous_cancellations').value) || 0,
+                previous_bookings_not_canceled: 0,
+                reserved_room_type: "A",
+                assigned_room_type: "A",
+                booking_changes: 0,
+                deposit_type: document.getElementById('deposit_type').value,
+                agent: 9.0,
+                company: 0.0,
+                days_in_waiting_list: 0,
+                customer_type: document.getElementById('customer_type').value,
+                adr: parseFloat(document.getElementById('adr').value) || 0.0,
+                required_car_parking_spaces: parseInt(document.getElementById('required_car_parking_spaces').value) || 0,
+                total_of_special_requests: parseInt(document.getElementById('total_of_special_requests').value) || 0
+            };
+
+            const scoreEl = document.getElementById('riskScorePercent');
+            const titleEl = document.getElementById('riskStatusTitle');
+            const descEl = document.getElementById('riskStatusDesc');
+
+            scoreEl.innerText = "...";
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+
+                if (data.status === 'success') {
+                    const probPct = (data.cancellation_probability * 100).toFixed(1);
+                    scoreEl.innerText = `${probPct}%`;
+
+                    renderGauge(probPct, data.is_canceled_prediction);
+
+                    if (data.is_canceled_prediction === 1) {
+                        scoreEl.className = "fw-extrabold mb-0 text-danger";
+                        titleEl.innerText = "High Cancellation Risk";
+                        titleEl.className = "fw-bold text-danger mb-2";
+                        descEl.innerText = "High likelihood of cancellation detected by XGBoost model.";
+                    } else {
+                        scoreEl.className = "fw-extrabold mb-0 text-success";
+                        titleEl.innerText = "Low Risk / Confirmed";
+                        titleEl.className = "fw-bold text-success mb-2";
+                        descEl.innerText = "Low risk assessment. Guest is highly likely to check-in.";
+                    }
+
+                    generateAISummary(payload, probPct, data.is_canceled_prediction);
+                }
+            } catch (e) {
+                alert("FastAPI Connection Error!");
+            }
+        }
+
+        // 100% Guaranteed Printable Off-Screen PDF Engine
+        function downloadPdfReport() {
+            const chartCanvas = document.getElementById('gaugeCanvas');
+            const chartImgData = chartCanvas.toDataURL("image/png");
+
+            const scoreText = document.getElementById('riskScorePercent').innerText;
+            const titleText = document.getElementById('riskStatusTitle').innerText;
+            const summaryContent = document.getElementById('aiSummaryContent').innerHTML;
+            const nightsText = document.getElementById('sumNights').innerText;
+            const priceText = document.getElementById('sumPrice').innerText;
+
+            const printDiv = document.createElement('div');
+            printDiv.id = 'tempPdfContainer';
+            printDiv.style.position = 'absolute';
+            printDiv.style.left = '-9999px';
+            printDiv.style.width = '750px';
+            printDiv.style.backgroundColor = '#ffffff';
+            printDiv.style.color = '#0f172a';
+            printDiv.style.padding = '35px';
+            printDiv.style.fontFamily = 'Arial, sans-serif';
+
+            printDiv.innerHTML = `
+                <div style="border-bottom: 3px solid #2563eb; padding-bottom: 12px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <h1 style="color: #1e3a8a; margin: 0; font-size: 24px; font-weight: bold;">StaySignal.ai - Executive Risk Report</h1>
+                        <span style="color: #64748b; font-size: 13px;">AI Hotel Booking Cancellation Assessment Portal</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span style="font-size: 12px; color: #64748b; font-weight: bold;">Date: ${new Date().toLocaleDateString()}</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 25px; background: #f8fafc; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <img src="${chartImgData}" style="width: 150px; height: 150px; margin-bottom: 10px;" />
+                    <h1 style="font-size: 42px; margin: 0; font-weight: bold; color: #0f172a;">${scoreText}</h1>
+                    <h2 style="margin: 8px 0 0 0; font-size: 20px; font-weight: bold; color: ${parseFloat(scoreText) > 50 ? '#dc2626' : '#16a34a'};">${titleText}</h2>
+                </div>
+
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                    <h3 style="color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; font-size: 16px;">Reservation Summary</h3>
+                    <p style="margin: 6px 0; font-size: 14px; color: #334155;"><strong>Estimated Duration:</strong> ${nightsText}</p>
+                    <p style="margin: 6px 0; font-size: 14px; color: #334155;"><strong>Estimated Revenue:</strong> ${priceText}</p>
+                </div>
+
+                <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                    <h3 style="color: #1e3a8a; margin-top: 0; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; font-size: 16px;">AI Risk Evaluation & Drivers</h3>
+                    <div style="color: #334155; font-size: 14px; line-height: 1.6;">
+                        ${summaryContent}
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(printDiv);
+
+            const opt = {
+                margin:       0.4,
+                filename:     `StaySignal_Executive_Report_${Date.now()}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, logging: false },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(printDiv).save().then(() => {
+                document.body.removeChild(printDiv);
+            });
+        }
+
+        function loadExample(type) {
+            if (type === 'safe') {
+                document.getElementById('hotel').value = 'City Hotel';
+                document.getElementById('lead_time').value = '15';
+                document.getElementById('deposit_type').value = 'No Deposit';
+                document.getElementById('stays_in_week_nights').value = '2';
+                document.getElementById('stays_in_weekend_nights').value = '1';
+                document.getElementById('adults').value = '2';
+                document.getElementById('children').value = '1';
+                document.getElementById('adr').value = '110';
+                document.getElementById('customer_type').value = 'Transient';
+                document.getElementById('previous_cancellations').value = '0';
+                document.getElementById('required_car_parking_spaces').value = '1';
+                document.getElementById('total_of_special_requests').value = '2';
+            } else if (type === 'risky') {
+                document.getElementById('hotel').value = 'City Hotel';
+                document.getElementById('lead_time').value = '450';
+                document.getElementById('deposit_type').value = 'Non Refund';
+                document.getElementById('stays_in_week_nights').value = '4';
+                document.getElementById('stays_in_weekend_nights').value = '2';
+                document.getElementById('adults').value = '1';
+                document.getElementById('children').value = '0';
+                document.getElementById('adr').value = '220';
+                document.getElementById('customer_type').value = 'Transient';
+                document.getElementById('previous_cancellations').value = '3';
+                document.getElementById('required_car_parking_spaces').value = '0';
+                document.getElementById('total_of_special_requests').value = '0';
+            }
+            submitBooking();
+        }
+
+        function resetForm() {
+            document.getElementById('bookingForm').reset();
+            document.getElementById('riskScorePercent').innerText = "-";
+            document.getElementById('riskScorePercent').className = "fw-extrabold mb-0 text-white";
+            document.getElementById('riskStatusTitle').innerText = "Awaiting Assessment";
+            document.getElementById('riskStatusTitle').className = "fw-bold text-white mb-2";
+            document.getElementById('riskStatusDesc').innerText = "Execute model inference to generate dynamic risk score and executive AI report.";
+            document.getElementById('aiSummaryContent').innerHTML = "<p class='mb-0'>Run evaluation to view dynamic risk drivers, mitigating factors, and operational recommendations.</p>";
+            document.getElementById('aiSummaryBadge').innerText = "READY";
+            document.getElementById('aiSummaryBadge').className = "badge bg-secondary";
+            document.getElementById('downloadPdfBtn').style.display = 'none';
+            calculateTotal();
+            renderGauge(0, 0);
+        }
+
+        let chartLoaded = false;
+        async function loadAnalytics() {
+            if (chartLoaded) return;
+            try {
+                const response = await fetch('/models');
+                const data = await response.json();
+
+                if (data.best_model) {
+                    document.getElementById('metricModelName').innerText = data.best_model;
+                    document.getElementById('metricRocAuc').innerText = data.best_roc_auc.toFixed(4);
+                }
+
+                const ctx = document.getElementById('metricsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Logistic Regression', 'Decision Tree', 'Random Forest', 'Extra Trees', 'XGBoost Baseline', 'Tuned XGBoost'],
+                        datasets: [{
+                            label: 'ROC-AUC Performance Score',
+                            data: [0.79, 0.83, 0.89, 0.90, 0.915, data.best_roc_auc || 0.9263],
+                            backgroundColor: ['#1e293b', '#1e293b', '#334155', '#475569', '#2563eb', '#60a5fa']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { min: 0.7, max: 1.0, grid: { color: 'rgba(255,255,255,0.05)' } }, x: { grid: { color: 'rgba(255,255,255,0.05)' } } }
+                    }
+                });
+                chartLoaded = true;
+            } catch (e) {
+                console.log('Analytics Loaded');
+            }
+        }
+
+        calculateTotal();
+        renderGauge(0, 0);
+    </script>
+</body>
+</html>

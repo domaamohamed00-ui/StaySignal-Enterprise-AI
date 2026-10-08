@@ -28,6 +28,23 @@ except Exception as e:
 os.makedirs("static", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+# مسارات خدمية لضمان قراءة التصميم مهما كان موقعه (في الجذر أو داخل static)
+@app.get("/style.css")
+async def get_css():
+    if os.path.exists("static/style.css"):
+        return FileResponse("static/style.css", media_type="text/css")
+    elif os.path.exists("style.css"):
+        return FileResponse("style.css", media_type="text/css")
+    raise HTTPException(status_code=404, detail="style.css not found")
+
+@app.get("/main.js")
+async def get_js():
+    if os.path.exists("static/main.js"):
+        return FileResponse("static/main.js", media_type="application/javascript")
+    elif os.path.exists("main.js"):
+        return FileResponse("main.js", media_type="application/javascript")
+    raise HTTPException(status_code=404, detail="main.js not found")
+
 # 4. تعريف Schema المدخلات (28 Feature)
 class BookingData(BaseModel):
     hotel: str = Field(default="City Hotel", example="City Hotel")
@@ -66,6 +83,8 @@ class BookingData(BaseModel):
 def home():
     if os.path.exists("static/index.html"):
         return FileResponse("static/index.html")
+    elif os.path.exists("index.html"):
+        return FileResponse("index.html")
     return {"status": "healthy", "service": "StaySignal API Engine"}
 
 @app.get("/health")
@@ -100,7 +119,6 @@ def predict(data: BookingData):
         base_prob = float(model_pipeline.predict_proba(df_pipeline_input)[0][1])
 
         # د) طبقة المعايرة الديناميكية (Domain Calibration Layer)
-        # تضمن استجابة منطقية وموزونة لكل حقل في الواجهة
         calibration = 0.0
 
         # 1. مدة الحجز المسبق (Lead Time)

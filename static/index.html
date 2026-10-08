@@ -17,14 +17,14 @@
         :root {
             --bg-4k: #030712;
             --card-3d-bg: linear-gradient(145deg, #111827 0%, #0b0f19 100%);
-            --card-3d-border: rgba(255, 255, 255, 0.12);
-            --card-3d-highlight: rgba(255, 255, 255, 0.22);
+            --card-3d-border: rgba(255, 255, 255, 0.18);
+            --card-3d-highlight: rgba(255, 255, 255, 0.3);
             --input-3d-bg: #090e1a;
             --accent-blue: #3b82f6;
             --accent-neon: #60a5fa;
             --accent-glow: rgba(59, 130, 246, 0.5);
             --text-bright: #ffffff;
-            --text-sub: #94a3b8;
+            --text-sub: #93c5fd;
         }
 
         body {
@@ -44,6 +44,11 @@
                         radial-gradient(circle at 10% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 40%);
             pointer-events: none;
             z-index: 0;
+        }
+
+        /* Override Bootstrap Dim Text to Bright Sky Blue */
+        .text-muted {
+            color: #93c5fd !important;
         }
 
         /* 3D Glass Cards */
@@ -103,9 +108,9 @@
 
         /* 3D High Contrast Form Labels & Inputs */
         .label-3d-text {
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 800;
-            color: #e2e8f0;
+            color: #60a5fa !important;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             margin-bottom: 8px;
@@ -135,8 +140,8 @@
 
         /* Section Titles */
         .section-3d-tag {
-            color: var(--accent-neon);
-            font-size: 0.85rem;
+            color: #60a5fa;
+            font-size: 0.9rem;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.1em;
@@ -191,7 +196,7 @@
         }
 
         .nav-pills .nav-link {
-            color: var(--text-sub);
+            color: #93c5fd;
             font-weight: 700;
             border-radius: 12px;
             padding: 10px 22px;
@@ -215,7 +220,7 @@
                 </div>
                 <div>
                     <span class="brand-text-4k">StaySignal<span class="text-white">.ai</span></span>
-                    <span class="d-block text-muted style-sub" style="font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em;">ENTERPRISE AI RISK PREDICTION SYSTEM</span>
+                    <span class="d-block style-sub" style="font-size: 0.72rem; font-weight: 800; letter-spacing: 0.1em; color: #60a5fa;">ENTERPRISE AI RISK PREDICTION SYSTEM</span>
                 </div>
             </a>
 
@@ -229,7 +234,7 @@
                     </li>
                 </ul>
 
-                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 fw-bold d-none d-md-inline-block">
+                <span class="badge bg-primary text-white border border-primary rounded-pill px-3 py-2 fw-bold d-none d-md-inline-block">
                     <i class="fa-solid fa-shield-check me-1"></i> XGBoost Engine Live
                 </span>
             </div>
@@ -249,7 +254,7 @@
                         <div class="kpi-3d-box d-flex align-items-center gap-3">
                             <i class="fa-solid fa-calendar-days text-primary fs-3"></i>
                             <div>
-                                <small class="text-muted fw-bold d-block">ESTIMATED DURATION</small>
+                                <small class="fw-bold d-block" style="color: #60a5fa;">ESTIMATED DURATION</small>
                                 <h5 class="fw-extrabold mb-0 text-white" id="sumNights">5 Nights</h5>
                             </div>
                         </div>
@@ -258,7 +263,7 @@
                         <div class="kpi-3d-box d-flex align-items-center gap-3">
                             <i class="fa-solid fa-users text-info fs-3"></i>
                             <div>
-                                <small class="text-muted fw-bold d-block">GUEST COUNT</small>
+                                <small class="fw-bold d-block" style="color: #60a5fa;">GUEST COUNT</small>
                                 <h5 class="fw-extrabold mb-0 text-white" id="sumGuests">3 Guests</h5>
                             </div>
                         </div>
@@ -267,7 +272,7 @@
                         <div class="kpi-3d-box d-flex align-items-center gap-3">
                             <i class="fa-solid fa-dollar-sign text-success fs-3"></i>
                             <div>
-                                <small class="text-muted fw-bold d-block">ESTIMATED REVENUE</small>
+                                <small class="fw-bold d-block" style="color: #60a5fa;">ESTIMATED REVENUE</small>
                                 <h5 class="fw-extrabold mb-0 text-white" id="sumPrice">$600</h5>
                             </div>
                         </div>
@@ -276,7 +281,7 @@
                         <div class="kpi-3d-box d-flex align-items-center gap-3">
                             <i class="fa-solid fa-sliders text-warning fs-3"></i>
                             <div>
-                                <small class="text-muted fw-bold d-block">INFERENCE PARAMETERS</small>
+                                <small class="fw-bold d-block" style="color: #60a5fa;">INFERENCE PARAMETERS</small>
                                 <h5 class="fw-extrabold mb-0 text-white">28 Features</h5>
                             </div>
                         </div>
@@ -389,11 +394,11 @@
                         <div class="card-3d-panel p-4 sticky-top" style="top: 90px;" id="printableReportArea">
                             
                             <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-muted small fw-bold">SCENARIO TESTERS</span>
+                                <span class="fw-bold small" style="color: #60a5fa;">SCENARIO TESTERS</span>
                                 <div class="btn-group btn-group-sm">
                                     <button class="btn btn-outline-success btn-sm fw-bold" onclick="loadExample('safe')">Low Risk</button>
                                     <button class="btn btn-outline-danger btn-sm fw-bold" onclick="loadExample('risky')">High Risk</button>
-                                    <button class="btn btn-outline-secondary btn-sm fw-bold" onclick="resetForm()">Reset</button>
+                                    <button class="btn btn-outline-info btn-sm fw-bold" onclick="resetForm()">Reset</button>
                                 </div>
                             </div>
 
@@ -403,12 +408,12 @@
                                     <canvas id="gaugeCanvas" width="220" height="220"></canvas>
                                     <div class="gauge-3d-text">
                                         <h1 id="riskScorePercent" class="fw-extrabold mb-0 text-white" style="text-shadow: 0 0 20px rgba(255,255,255,0.4);">-</h1>
-                                        <span class="text-muted fw-bold" style="font-size: 0.72rem; letter-spacing: 0.08em;">CANCELLATION RISK</span>
+                                        <span class="fw-bold" style="font-size: 0.75rem; letter-spacing: 0.08em; color: #93c5fd;">CANCELLATION RISK</span>
                                     </div>
                                 </div>
                                 
                                 <h4 id="riskStatusTitle" class="fw-bold text-white mb-2">Awaiting Assessment</h4>
-                                <p id="riskStatusDesc" class="text-muted small">Execute model inference to generate dynamic risk score and executive AI report.</p>
+                                <p id="riskStatusDesc" style="color: #93c5fd;" class="small">Execute model inference to generate dynamic risk score and executive AI report.</p>
                             </div>
 
                             <!-- AI Executive Summary Box -->
@@ -420,7 +425,7 @@
                                     </div>
                                     <span class="badge bg-secondary" style="font-size: 0.65rem;" id="aiSummaryBadge">READY</span>
                                 </div>
-                                <div id="aiSummaryContent" class="text-muted small">
+                                <div id="aiSummaryContent" class="small" style="color: #93c5fd;">
                                     <p class="mb-0">Run evaluation to view dynamic risk drivers, mitigating factors, and operational recommendations.</p>
                                 </div>
                             </div>
@@ -441,23 +446,23 @@
                 <div class="row g-4 mb-4">
                     <div class="col-md-4">
                         <div class="card-3d-panel p-4 text-center">
-                            <span class="text-muted small fw-bold">CHOSEN MODEL ENGINE</span>
+                            <span class="fw-bold small" style="color: #60a5fa;">CHOSEN MODEL ENGINE</span>
                             <h3 class="fw-bold text-primary mt-2" id="metricModelName">Tuned XGBoost</h3>
-                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Production Deployed</span>
+                            <span class="badge bg-primary text-white border border-primary">Production Deployed</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card-3d-panel p-4 text-center">
-                            <span class="text-muted small fw-bold">ROC-AUC ACCURACY</span>
+                            <span class="fw-bold small" style="color: #60a5fa;">ROC-AUC ACCURACY</span>
                             <h3 class="fw-bold text-success mt-2" id="metricRocAuc">0.9263</h3>
-                            <span class="text-muted small">Validation Test Score</span>
+                            <span class="small" style="color: #93c5fd;">Validation Test Score</span>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="card-3d-panel p-4 text-center">
-                            <span class="text-muted small fw-bold">INPUT DIMENSIONALITY</span>
+                            <span class="fw-bold small" style="color: #60a5fa;">INPUT DIMENSIONALITY</span>
                             <h3 class="fw-bold text-info mt-2">28 Parameters</h3>
-                            <span class="text-muted small">Balanced Multi-Feature</span>
+                            <span class="small" style="color: #93c5fd;">Balanced Multi-Feature</span>
                         </div>
                     </div>
                 </div>
@@ -530,7 +535,7 @@
             if (payload.required_car_parking_spaces > 0) mitigations.push("Parking slot requested (strong intent).");
             if (payload.total_of_special_requests > 0) mitigations.push(`${payload.total_of_special_requests} special request(s) logged.`);
 
-            let summaryHtml = `<div class="mb-2"><strong class="text-white">Primary Risk Drivers:</strong><ul class="mb-1 ps-3 text-muted">`;
+            let summaryHtml = `<div class="mb-2"><strong class="text-white">Primary Risk Drivers:</strong><ul class="mb-1 ps-3" style="color: #93c5fd;">`;
             if (drivers.length > 0) {
                 drivers.forEach(d => summaryHtml += `<li>${d}</li>`);
             } else {
@@ -538,7 +543,7 @@
             }
             summaryHtml += `</ul></div>`;
 
-            summaryHtml += `<div class="mb-2"><strong class="text-white">Mitigating Factors:</strong><ul class="mb-1 ps-3 text-muted">`;
+            summaryHtml += `<div class="mb-2"><strong class="text-white">Mitigating Factors:</strong><ul class="mb-1 ps-3" style="color: #93c5fd;">`;
             if (mitigations.length > 0) {
                 mitigations.forEach(m => summaryHtml += `<li>${m}</li>`);
             } else {

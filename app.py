@@ -15,7 +15,7 @@ app = FastAPI(
     version="2.0.0"
 )
 
-# 2. تحميل نموذج XGBoost عند بدايه تشغيل السيرفر
+# 2. تحميل نموذج XGBoost عند بداية تشغيل السيرفر
 MODEL_PATH = "artifacts/model.joblib"
 try:
     model_pipeline = joblib.load(MODEL_PATH)
@@ -28,7 +28,7 @@ except Exception as e:
 os.makedirs("static", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
-# مسارات خدمية لضمان قراءة التصميم مهما كان موقعه (في الجذر أو داخل static)
+# مسارات خدمية لتسهيل تحصيل ملفات CSS و JS
 @app.get("/style.css")
 async def get_css():
     if os.path.exists("static/style.css"):
@@ -105,6 +105,19 @@ def predict(data: BookingData):
 
     try:
         input_data = data.model_dump()
+
+        # --- [تعديل هائم: توحيد قيمة deposit_type لتطابق الموديل والواجهة] ---
+        raw_deposit = str(input_data.get('deposit_type', 'No Deposit')).strip()
+        if raw_deposit in ['Non Refundable', 'Non-Refundable', 'Non Refund', 'non refund']:
+            clean_deposit = 'Non Refund'
+        elif raw_deposit in ['Refundable', 'Refund', 'refundable']:
+            clean_deposit = 'Refundable'
+        else:
+            clean_deposit = 'No Deposit'
+        
+        input_data['deposit_type'] = clean_deposit
+        # -------------------------------------------------------------
+
         df_input = pd.DataFrame([input_data])
 
         # أ) حساب الميزات المشتقة (Engineered Features)
@@ -147,9 +160,14 @@ def predict(data: BookingData):
         if parking > 0:
             calibration -= 0.06
 
-        # 5. نوع الوديعة والعميل
-        if input_data.get('deposit_type') == 'Non Refund' and lead > 100:
-            calibration += 0.12
+        # 5. نوع الوديعة والعميل (Deposit Calibration)
+        if clean_deposit == 'Non Refund':
+            if lead > 100:
+                calibration += 0.12
+            else:
+                calibration += 0.06
+        elif clean_deposit == 'Refundable':
+            calibration -= 0.05
 
         if input_data.get('is_repeated_guest', 0) == 1:
             calibration -= 0.10
